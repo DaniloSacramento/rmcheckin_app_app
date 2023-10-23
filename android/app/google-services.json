@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "382413175579",
+    "project_id": "rmcheckinapp-b1ec4",
+    "storage_bucket": "rmcheckinapp-b1ec4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:382413175579:android:0b906711f750590ce371be",
+        "android_client_info": {
+          "package_name": "br.com.corptech_RMCheckin.rmcheckin"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXu0BxMdgHm7_s4IHkHeE_cakngUvZ-OU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
