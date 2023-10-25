@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rmcheckin/app/esqueci_senha/esqueci_senha_page.dart';
+import 'package:rmcheckin/app/services/auth_promoter.dart';
 import 'package:rmcheckin/app/widget/app_color.dart';
 
 class LoginPage extends StatefulWidget {
@@ -185,14 +186,13 @@ class _LoginPageState extends State<LoginPage> {
                 Padding(
                   padding: const EdgeInsets.only(left: 10.0, right: 10),
                   child: SizedBox(
-                    height: 50,
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: yellowColor,
                           minimumSize: const Size(double.infinity, 50),
                         ),
                         onPressed: () {},
-                        child: Text('Entrar')),
+                        child: const Text('Entrar')),
                   ),
                 )
               ],

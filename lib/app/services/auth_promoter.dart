@@ -4,7 +4,7 @@ import 'package:rmcheckin/app/const/const.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
-Future<bool> login(String email, String password) async {
+Future<bool> login({required String email, required String password}) async {
   SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
   var url = Uri.parse(ConstsApi.promotorAuth);
   var resposta = await http.post(

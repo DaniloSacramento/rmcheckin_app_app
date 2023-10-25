@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -7,13 +9,38 @@ import 'package:rmcheckin/app/widget/app_color.dart';
 
 class MyPhone extends StatefulWidget {
   const MyPhone({Key? key}) : super(key: key);
-
+  static String verify = '';
   @override
   State<MyPhone> createState() => _MyPhoneState();
 }
 
 class _MyPhoneState extends State<MyPhone> {
   TextEditingController telefoneController = TextEditingController();
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  sendOtp() async {
+    await _auth.verifyPhoneNumber(
+        phoneNumber: "+55${telefoneController.text}",
+        verificationCompleted: (PhoneAuthCredential credential) async {
+          await _auth.signInWithCredential(credential).then((value) {});
+        },
+        verificationFailed: (FirebaseAuthException e) {
+          if (e.code == 'Codigo invalido') {
+            print('Erro');
+          }
+        },
+        codeSent: (verificationId, forceResendingToken) {
+          MyPhone.verify = verificationId;
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => RegisterCodigo(
+                        verificationId: verificationId,
+                      )));
+        },
+        codeAutoRetrievalTimeout: (String verificationId) {},
+        timeout: Duration(seconds: 120));
+  }
+
   final _formKey = GlobalKey<FormState>();
   bool isLoading = false;
 
@@ -87,7 +114,7 @@ class _MyPhoneState extends State<MyPhone> {
                     ),
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 40,
                 ),
                 Center(
@@ -98,12 +125,7 @@ class _MyPhoneState extends State<MyPhone> {
                     ),
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        await FirebaseAuth.instance.verifyPhoneNumber(
-                            phoneNumber: telefoneController.text,
-                            verificationCompleted: (PhoneAuthCredential credential) {},
-                            verificationFailed: (FirebaseAuthException e) {},
-                            codeSent: (String verificationId, int? resendToken) {},
-                            codeAutoRetrievalTimeout: (String verificationId) {});
+                        sendOtp();
                       }
                     },
                     child: Text(
